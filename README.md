@@ -1,22 +1,88 @@
-# ETH-AVAX-MODULE-2
+# ETH-AVAX-MODULE-
 
-This is a simple React component for a Create NFT application. It allows users to connect their MetaMask wallet, view their account address, Total NFTs, Create NFT and Burn NFT.
+This is a Solidity smart contract that demonstrates different error handling techniques using assert, revert, and require functions.
 
 ## Description
-This repository contains a Solidity smart contract named Assessment which allows an owner to manage a balance and perform deposit and withdrawal transactions.
+MyToken
 
-### Run or deploy Project
-After cloning the github, you will want to do the following to get the code running on your computer.
+MyToken is a simple ERC20-compatible token contract implemented in Solidity. It represents a token called "Polygon" with the abbreviation "MATIC". The contract allows token minting and burning, and provides functionality to track token balances for different addresses.
 
-1. Install Hardhat, check link to installation https://hardhat.org/hardhat-runner/docs/getting-started
-2. Install Node.js https://nodejs.org/en/download
-3. Inside the project directory, in the terminal type: npx next -v
-4. Inside the project directory, in the terminal type: npm i
-5. Open two additional terminals in your VS code
-6. In the second terminal type: npx hardhat node
-7. In the third terminal, type: npx hardhat run --network localhost scripts/deploy.js
-8. Back in the first terminal, type npm run dev to launch the front-end.
-9. After this, the project will be running on your localhost. Typically at http://localhost:3000/
+Public Variables
+
+- `tokenName`: A public string variable representing the name of the token.
+- `tokenAbbrv`: A public string variable representing the abbreviation or symbol of the token.
+- `totalSupply`: A public uint variable representing the total supply of the token.
+
+Mapping Variable
+
+- `balances`: A mapping variable that associates addresses with their corresponding token balances. It allows users to query token balances for specific addresses.
+
+Functions
+
+- `mint`: A function that mints new tokens and assigns them to a specified address. The total supply and the balance of the given address are increased by the minted amount.
+- `burn`: A function that burns (destroys) a specified amount of tokens owned by a given address. If the address has a sufficient balance, the total supply and the balance of the address are reduced by the burned amount.
+
+This contract can be used as a starting point for creating and managing custom tokens on the Ethereum blockchain. It provides the basic functionality required for token issuance, transfers, and balance tracking. Feel free to use and modify this contract as needed for your own token projects.
+
+## Getting Started
+
+### Executing program
+
+To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
+
+Once you are on the Remix website, create a new file by clicking on the left-hand sidebar. Save the file with a .sol extension (e.g., myToken.sol). Copy and paste the following code into the file:
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.18;
+
+/*
+       REQUIREMENTS
+    1. Your contract will have public variables that store the details about your coin (Token Name, Token Abbrv., Total Supply)
+    2. Your contract will have a mapping of addresses to balances (address => uint)
+    3. You will have a mint function that takes two parameters: an address and a value. 
+       The function then increases the total supply by that number and increases the balance 
+       of the “sender” address by that amount
+    4. Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. 
+       It will take an address and value just like the mint functions. It will then deduct the value from the total supply 
+       and from the balance of the “sender”.
+    5. Lastly, your burn function should have conditionals to make sure the balance of "sender" is greater than or equal 
+       to the amount that is supposed to be burned.
+*/
+
+contract MyToken {
+
+    // public variables here
+    string public tokenName = "Polygon";
+    string public tokenAbbrv = "MATIC";
+    uint public totalSupply = 0;
+
+    // mapping variable here
+    mapping(address => uint) public balances;
+
+    // mint function
+    function mint(address _address, uint _value) public {
+        totalSupply += _value;
+        balances[_address] += _value;
+    }
+
+    // burn function
+    function burn(address _address, uint _value) public {
+        if(balances[_address] >= _value){
+            totalSupply -= _value;
+            balances[_address] -= _value;
+        }
+    }
+
+}
+
+```
+
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to graater than 0.8.18, and then click on the "Compile myToken.sol" button.
+
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "myToken" contract from the dropdown menu, and then click on the "Deploy" button.
+
+Once the contract is deployed, you can interact with it by calling the the following functions: mint function, burn function and also can check variables values like balances, tokenName, tokenAbbrv, totalSupply. To track token balances of address or token minting and burning you have to write or copy paste sender account.
 
 ## Authors
 
