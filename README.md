@@ -1,6 +1,6 @@
-# ETH-AVAX-MODULE-
+# ETH-Assessment
 
-This is a Solidity smart contract that demonstrates different error handling techniques using assert, revert, and require functions.
+This Solidity program is a simple "Create a token" program that demonstrates the basic syntax and functionality of the Solidity programming language. This contract is a simple implementation of a custom token called MyToken. It allows minting new tokens, burning existing tokens, and tracking balances of token holders.
 
 ## Description
 MyToken
