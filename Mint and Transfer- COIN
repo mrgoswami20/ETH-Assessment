@@ -1,0 +1,29 @@
+pragma solidity ^0.5.0;
+
+contract coins {
+    // Create variables
+    address public minter; // Address of the contract deployer (minter)
+    mapping(address => uint) public balances; // Mapping to store balances of addresses
+
+    // Event declaration to log transactions
+    event Sent(address from, address to, uint amount);
+
+    // Constructor function to set the minter variable to the address that deployed the contract
+    constructor() public {
+        minter = msg.sender;
+    }
+
+    // Function to mint coins with two parameters(owner address and the amount)
+    function mint(address owner, uint amount) public {
+        require(msg.sender == minter, "You are not the owner!"); // Only the owner can mint coins
+        balances[owner] += amount; // Increase the balance of the specified address
+    }
+
+    // Function to send coins from one address to another
+    function send( address receiver, uint amount) public {
+        require(balances[msg.sender] >= amount, "Not sufficient balance"); // Check if the owner has enough balance
+        balances[receiver] += amount; // Increase the balance of the receiver
+        balances[msg.sender] -= amount; // Decrease the balance of the owner
+        emit Sent(msg.sender, receiver, amount); // Emit an event to log the transaction
+    }
+}
